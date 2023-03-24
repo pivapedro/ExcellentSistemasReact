@@ -17,7 +17,7 @@ const api = axios.create({
 
 export const apis = {
   getProducts: async () => await api.get("/products"),
-  updateProducts: async (body) => await api.put("/products", body),
+  updateProducts: async (body) => await api.put("/product", body),
   getOrders: async () => await api.get("/orders"),
   createProduct: async (body) => await api.post("/product", body),
   createOrder: async (body) => await api.post("/order", body),

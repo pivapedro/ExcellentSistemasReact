@@ -51,20 +51,20 @@ const ProductForm = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const { data } = id
+      const { data } = !id
         ? await apis.createProduct({
             description,
             value,
             current_inventory: currentInventory,
             image_src: images,
             name,
-            product_id: id,
           })
         : await apis.updateProducts({
             description,
             value,
             current_inventory: currentInventory,
             image_src: images,
+            product_id: id,
             name,
           });
 
@@ -83,7 +83,7 @@ const ProductForm = () => {
     <>
       <NavBar />
       <Container>
-        <h2 className="my-5">Novo Produto</h2>
+        <h2 className="my-5">{!id ? "Novo" : "Editar"} Produto</h2>
         <Form onSubmit={handleSubmit} className="row">
           <Form.Group controlId="formStock" className="col-6 my-2">
             <Form.Label>Nome</Form.Label>
@@ -143,10 +143,14 @@ const ProductForm = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
-
-          <Button variant="primary" type="submit" className="my-3">
+          <div className="text-center">
+            <Button variant="primary" type="submit" className="my-3 col-2">
+              {!id ? "Criar" : "Salvar"} Produto
+            </Button>
+          </div>
+          {/*   <Button variant="primary" type="submit" className="my-3">
             Submit
-          </Button>
+          </Button> */}
         </Form>
       </Container>
     </>

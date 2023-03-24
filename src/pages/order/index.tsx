@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import { apis } from "../../services";
 import { DeviceContext } from "../../store";
+import { IProducts } from "../home";
 interface IOrders {
   order_id: number;
   client: string;
+  products: IProducts[];
 }
 const OrderPage = () => {
   const navigate = useNavigate();

@@ -10,7 +10,7 @@ export interface IProducts {
   value: number;
   current_inventory: number;
   name: string;
-  images: {
+  images?: {
     image_src: string;
     image_id: string;
   }[];

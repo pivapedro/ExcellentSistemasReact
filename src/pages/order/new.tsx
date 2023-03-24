@@ -33,11 +33,14 @@ const OrderForm = () => {
   };
 
   const addProductToRequest = () => {
-    if (typeof selectedProduct !== "undefined")
+    if (typeof selectedProduct !== "undefined") {
+      const { images, ...rest } = selectedProduct;
+
       setRequestProducts([
         ...requestProducts,
-        { ...selectedProduct, quantity: quantity },
+        { ...rest, quantity: quantity },
       ]);
+    }
     setSelectedValue("0");
     setQuantity(0);
     setSelectedProduct(undefined);
@@ -62,13 +65,17 @@ const OrderForm = () => {
   });
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    console.log({
+      ...formData,
+
+      products: requestProducts,
+    });
     try {
       const { data } = await apis.createOrder({
         ...formData,
         products: requestProducts,
       });
 
-      navigate("/orders");
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -115,7 +122,7 @@ const OrderForm = () => {
             <Form.Label className="col-12">
               Quantidade
               {selectedProduct?.current_inventory
-                ? `(máx ${selectedProduct?.current_inventory})`
+                ? ` (max ${selectedProduct?.current_inventory})`
                 : null}
             </Form.Label>
             <Form.Control
